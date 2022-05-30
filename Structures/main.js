@@ -1,6 +1,6 @@
+require("dotenv").config();
 const { Client, Collection } = require("discord.js");
 const client = new Client({ intents: 32767 });
-const { TOKEN } = require("./config.json");
 
 const { promisify } = require("util");
 const Ascii = require("ascii-table");
@@ -19,4 +19,4 @@ client.filtersLog = new Collection();
   require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
 
-client.login(TOKEN);
+client.login(process.env.TOKEN);
