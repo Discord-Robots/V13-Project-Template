@@ -1,5 +1,5 @@
 const { MessageEmbed, Message, WebhookClient } = require("discord.js");
-const { MESSAGELOGS } = require("../../Structures/config.json");
+const MESSAGELOGS = process.env.MESSAGELOGS;
 
 module.exports = {
   name: "messageDelete",
