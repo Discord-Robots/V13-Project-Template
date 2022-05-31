@@ -10,7 +10,7 @@ module.exports = {
    * @param {CommandInteraction} interaction 
    * @param {Client} client 
    */
-  async execute(interaction, client) {
+  async execute(interaction, client, guildData, funcs) {
     await interaction.reply({
       embeds: [
         {
@@ -47,10 +47,10 @@ function switchTo(val) {
       status = `🟢 CONNECTED`;
       break;
     case 2:
-      status = `🟢 CONNECTING`;
+      status = `🟡 CONNECTING`;
       break;
     case 3:
-      status = `🟢 DISCONNECTING`;
+      status = `🟡 DISCONNECTING`;
       break;
   }
   return status;

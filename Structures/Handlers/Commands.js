@@ -4,7 +4,7 @@ const { Client } = require("discord.js");
  *
  * @param {Client} client
  */
-module.exports = async (client, PG, Ascii) => {
+module.exports = async (client, PG, Ascii, guildData, funcs) => {
   const Table = new Ascii("Commands Loaded");
 
   let CommandsArray = [];

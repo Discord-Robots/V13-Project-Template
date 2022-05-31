@@ -1,5 +1,4 @@
 const { Client, CommandInteraction, MessageEmbed } = require("discord.js");
-const DB = require("../../Structures/Schemas/SuggestDB");
 
 module.exports = {
   name: "interactionCreate",
@@ -7,7 +6,7 @@ module.exports = {
    * @param {CommandInteraction} interaction
    * @param {Client} client
    */
-  async execute(interaction, client) {
+  async execute(interaction, client, guildData, funcs) {
     if (interaction.isCommand() || interaction.isContextMenu()) {
       const command = client.commands.get(interaction.commandName);
       if (!command)
@@ -18,10 +17,10 @@ module.exports = {
                 .setColor("RED")
                 .setDescription("An error occured while running this command"),
             ],
-          }) && client.commands.delete(interaction.commandName)
+          }) && client.application.commands.delete(interaction.commandName)
         );
 
-      command.execute(interaction, client);
+      command.execute(interaction, client, guildData, funcs);
     }
   },
 };
