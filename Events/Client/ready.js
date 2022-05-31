@@ -9,23 +9,25 @@ module.exports = {
    * @param {Client} client
    */
   async execute(client) {
-    console.log("The client is now ready!");
-    client.user.setActivity("slash commands", { type: "LISTENING" });
+    console.log("🟢 - Logged into Discord as " + client.user.tag);
 
-    if (!DATABASEURL) return;
-    mongoose
-      .connect(DATABASEURL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      })
-      .then(() => {
-        console.log("The client is now connected to the database!");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    require("../../Systems/LockdownSys")(client);
-    require("../../Systems/ChatFilterSys")(client);
+    if (DATABASEURL) {
+      mongoose
+        .connect(DATABASEURL, {
+          useNewUrlParser: true,
+          useUnifiedTopology: true,
+        })
+        .then(() => {
+          console.log("🟢 - Connected to the database!");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      require("../../Systems/LockdownSys")(client);
+      require("../../Systems/ChatFilterSys")(client);
+    } else
+      console.log(
+        "⛔ - No database connection string found. Please set in .env file as DATABASEURL"
+      );
   },
 };

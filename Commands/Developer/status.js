@@ -1,4 +1,4 @@
-const { MessageEmbed, Client, CommandInteraction } = require("discord.js");
+const { Client, CommandInteraction } = require("discord.js");
 const { connection } = require("mongoose");
 require("../../Events/Client/ready");
 
@@ -7,31 +7,31 @@ module.exports = {
   description: "Displays the status of the client and database connection",
   permission: "ADMINISTRATOR",
   /**
-   * @param {CommandInteraction} interaction 
-   * @param {Client} client 
+   * @param {CommandInteraction} interaction
+   * @param {Client} client
    */
   async execute(interaction, client, guildData, funcs) {
     await interaction.reply({
       embeds: [
         {
-          title: 'Bot Status',
+          title: "Bot Status",
           fields: [
             {
-              name: 'Status',
-              value: `\`🟢 ONLINE\` - \`${client.ws.ping}ms`
+              name: "Status",
+              value: `\`🟢 ONLINE\` - \`${client.ws.ping}ms\``,
             },
             {
               name: `Database:`,
-              value: `\`${switchTo(connection.readyState)}\``
+              value: `\`${switchTo(connection.readyState)}\``,
             },
             {
               name: `**Uptime**:`,
-              value: `<t:${parseInt(client.readyTimestamp / 1000)}:R> `
-            }
-          ], 
-          color: 'RANDOM',
-          footer: client.user.tag
-        }
+              value: `<t:${parseInt(client.readyTimestamp / 1000)}:R> `,
+            },
+          ],
+          color: "BLURPLE",
+          footer: client.user.tag,
+        },
       ],
     });
   },
@@ -50,7 +50,7 @@ function switchTo(val) {
       status = `🟡 CONNECTING`;
       break;
     case 3:
-      status = `🟡 DISCONNECTING`;
+      status = `🟣 DISCONNECTING`;
       break;
   }
   return status;
