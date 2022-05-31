@@ -17,16 +17,16 @@ module.exports = {
           title: "Bot Status",
           fields: [
             {
-              name: "Status",
-              value: `\`🟢 ONLINE\` - \`${client.ws.ping}ms\``,
+              name: "Ping:",
+              value: `\`🟢 ONLINE - ${client.ws.ping}ms\``,
             },
             {
               name: `Database:`,
               value: `\`${switchTo(connection.readyState)}\``,
             },
             {
-              name: `**Uptime**:`,
-              value: `<t:${parseInt(client.readyTimestamp / 1000)}:R> `,
+              name: `Uptime:`,
+              value: `<t:${parseInt(client.readyTimestamp / 1000)}:R>`,
             },
           ],
           color: "BLURPLE",
