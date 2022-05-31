@@ -20,7 +20,7 @@ const { promisify } = require("util");
 const Ascii = require("ascii-table");
 const { glob } = require("glob");
 const PG = promisify(glob);
-const Utils = require("./Utils")(client);
+const Utils = require("./Utils");
 
 (async () => {
   client.commands = new Collection();
