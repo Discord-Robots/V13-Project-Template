@@ -20,16 +20,14 @@ const { promisify } = require("util");
 const Ascii = require("ascii-table");
 const { glob } = require("glob");
 const PG = promisify(glob);
-const Util = require("./Utils");
-const guildData = {};
-let funcs;
+const Utils = require("./Utils")(client);
+
 (async () => {
   client.commands = new Collection();
   client.filters = new Collection();
   client.filtersLog = new Collection();
-  client.functions = new Util();
+  client.functions = new Utils(client);
   client.login(process.env.TOKEN);
-  funcs = client.functions;
 })();
 
 ["GiveawaySys"].forEach((system) => {
@@ -37,5 +35,5 @@ let funcs;
 });
 
 ["Events", "Commands"].forEach((handler) => {
-  require(`./Handlers/${handler}`)(client, PG, Ascii, guildData, funcs);
+  require(`./Handlers/${handler}`)(client, PG, Ascii);
 });
