@@ -1,7 +1,22 @@
 require("dotenv").config();
-const { Client, Collection, Util } = require("discord.js");
-const client = new Client({ intents: 131071 });
-const Util = require("./Utils");
+const { Client, Collection } = require("discord.js");
+const client = new Client({
+  intents: 32767,
+  partials: [
+    "CHANNEL",
+    "USER",
+    "MESSAGE",
+    "REACTION",
+    "GUILD_MEMBER",
+    "GUILD_SCHEDULED_EVENT",
+  ],
+  presence: {
+    status: "dnd",
+    activities: [{ name: "slash commands", type: "LISTENING" }],
+    afk: true,
+  },
+});
+const Utilities = require("./Utils");
 const guildData = {};
 
 const { promisify } = require("util");
@@ -12,7 +27,7 @@ const PG = promisify(glob);
 client.commands = new Collection();
 client.filters = new Collection();
 client.filtersLog = new Collection();
-client.functions = new Util();
+client.functions = new Utilities();
 const funcs = client.functions;
 
 ["GiveawaySys"].forEach((system) => {
