@@ -1,4 +1,4 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Client, CommandInteraction } = require("discord.js");
 const { connection } = require("mongoose");
 require("../../Events/Client/ready");
 
@@ -6,18 +6,32 @@ module.exports = {
   name: "status",
   description: "Displays the status of the client and database connection",
   permission: "ADMINISTRATOR",
+  /**
+   * @param {CommandInteraction} interaction 
+   * @param {Client} client 
+   */
   async execute(interaction, client) {
     await interaction.reply({
       embeds: [
-        new MessageEmbed().setColor("#2f3136")
-          .setDescription(`**Client**: \`🟢 ONLINE\` - \`${
-          client.ws.ping
-        }ms\`\n - **Uptime**: <t:${parseInt(client.readyTimestamp / 1000)}:R>\n
-                **Database**: \`${switchTo(
-                  connection.readyState
-                )}\`\n - **Uptime**: <t:${parseInt(
-          client.readyTimestamp / 1000
-        )}:R> `),
+        {
+          title: 'Bot Status',
+          fields: [
+            {
+              name: 'Status',
+              value: `\`🟢 ONLINE\` - \`${client.ws.ping}ms`
+            },
+            {
+              name: `Database:`,
+              value: `\`${switchTo(connection.readyState)}\``
+            },
+            {
+              name: `**Uptime**:`,
+              value: `<t:${parseInt(client.readyTimestamp / 1000)}:R> `
+            }
+          ], 
+          color: 'RANDOM',
+          footer: client.user.tag
+        }
       ],
     });
   },
