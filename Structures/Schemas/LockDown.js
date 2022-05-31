@@ -6,5 +6,6 @@ module.exports = model(
     GuildID: String,
     ChannelID: String,
     Time: String,
-  })
+  }),
+  "Lockdown"
 );

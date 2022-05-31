@@ -11,5 +11,6 @@ module.exports = model(
     Everyone: String,
     Description: String,
     Buttons: [String],
-  })
+  }),
+  "TicketSetup"
 );

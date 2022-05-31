@@ -6,5 +6,6 @@ module.exports = model(
     Guild: String,
     Log: String,
     Words: [String],
-  })
+  }),
+  "Filter"
 );
