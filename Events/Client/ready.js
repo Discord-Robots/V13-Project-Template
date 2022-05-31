@@ -1,4 +1,4 @@
-const { DATABASEURL, DBPANEL } = process.env;
+const { DATABASEURL, DBPANEL, BOTOWNERID } = process.env;
 const { Client } = require("discord.js");
 const mongoose = require("mongoose");
 const db = require("../../Structures/Schemas/Guild");
@@ -20,18 +20,28 @@ module.exports = {
         })
         .then(() => {
           console.log("🟢 - The client is now connected to the database!");
+          client.guilds.cache.forEach((g) => {
+            client.functions.guild(g.id, g.name);
+          });
         })
-        .catch(() => {
-          console.log(
-            `⛔ - No database connection! Please get your free database cluser here ${DBPANEL}`
-          );
+        .catch((err) => {
+          let str = "";
+          if (!DATABASEURL) {
+            str += `⛔ - No database connection! Please get your free database cluser here ${DBPANEL}`;
+          }
+          if (err) {
+            str += `Mongoose has encountered an error, but your bot is still operational without a database.\n${err}`;
+            client.users.cache
+              .get(BOTOWNERID)
+              .send(
+                `This is a message reguarding your bot. I have encountered an error with your database. Please resolve asap.\n${err}`
+              );
+          }
+          console.log(str);
         });
     } else return null;
 
     require("../../Systems/LockdownSys")(client);
     require("../../Systems/ChatFilterSys")(client);
-    client.guilds.cache.forEach((g) => {
-      client.functions.guild(g.id, g.name);
-    });
   },
 };
