@@ -1,6 +1,7 @@
-const DATABASEURL = process.env.DATABASEURL;
+const { DATABASEURL, DBPANEL } = process.env;
 const { Client } = require("discord.js");
 const mongoose = require("mongoose");
+const db = require("../../Structures/Schemas/Guild");
 
 module.exports = {
   name: "ready",
@@ -18,16 +19,19 @@ module.exports = {
           useUnifiedTopology: true,
         })
         .then(() => {
-          console.log("🟢 - Connected to the database!");
+          console.log("🟢 - The client is now connected to the database!");
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          console.log(
+            `⛔ - No database connection! Please get your free database cluser here ${DBPANEL}`
+          );
         });
-      require("../../Systems/LockdownSys")(client);
-      require("../../Systems/ChatFilterSys")(client);
-    } else
-      console.log(
-        "⛔ - No database connection string found. Please set in .env file as DATABASEURL"
-      );
+    } else return null;
+
+    require("../../Systems/LockdownSys")(client);
+    require("../../Systems/ChatFilterSys")(client);
+    client.guilds.cache.forEach((g) => {
+      client.functions.guild(g.id, g.name);
+    });
   },
 };
