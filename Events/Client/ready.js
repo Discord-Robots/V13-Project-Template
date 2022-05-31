@@ -1,4 +1,4 @@
-const { DATABASEURL } = require("../../Structures/config.json");
+const DATABASEURL = process.env.DATABASEURL;
 const { Client } = require("discord.js");
 const mongoose = require("mongoose");
 
@@ -10,7 +10,7 @@ module.exports = {
    */
   async execute(client) {
     console.log("The client is now ready!");
-    client.user.setActivity("/commands", { type: "LISTENING" });
+    client.user.setActivity("slash commands", { type: "LISTENING" });
 
     if (!DATABASEURL) return;
     mongoose
