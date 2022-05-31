@@ -1,5 +1,6 @@
 const { MessageEmbed, Message, WebhookClient } = require("discord.js");
-const { MESSAGELOGS } = require("../../Structures/config.json");
+const { DISCORDWEBHOOKURL } = process.env;
+
 module.exports = {
   name: "messageUpdate",
   /**
@@ -34,7 +35,7 @@ module.exports = {
       });
 
     new WebhookClient({
-      url: MESSAGELOGS,
+      url: DISCORDWEBHOOKURL,
     })
       .send({ embeds: [Log] })
       .catch((err) => console.log(err));
