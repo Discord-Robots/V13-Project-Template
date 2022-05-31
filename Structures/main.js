@@ -10,6 +10,11 @@ const client = new Client({
     "USER",
     "REACTION",
   ],
+  presence: {
+    status: "dnd",
+    activities: [{ name: "slash commands", type: "LISTENING" }],
+    afk: true,
+  },
 });
 const { promisify } = require("util");
 const Ascii = require("ascii-table");
