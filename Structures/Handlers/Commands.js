@@ -37,6 +37,7 @@ module.exports = async (client, PG, Ascii, guildData, funcs) => {
   console.log(Table.toString());
 
   client.on("ready", async () => {
+    // client.application.commands.set([]);
     client.guilds.cache.forEach((g) => {
       g.commands.set(CommandsArray);
     });
