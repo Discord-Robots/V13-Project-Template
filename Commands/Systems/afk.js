@@ -29,18 +29,22 @@ module.exports = {
    * @param {CommandInteraction} interaction
    */
   async execute(interaction) {
-    const { guild, options, user, createdTimestamp } = interaction;
+    const { guild, options, user, createdTimestamp, client } = interaction;
 
-    const Embed = new MessageEmbed().setAuthor({
-      name: user.tag,
-      iconURL: user.displayAvatarURL({ dynamic: true }),
-    });
+    const Embed = new MessageEmbed()
+      .setAuthor({
+        name: user.tag,
+        iconURL: user.displayAvatarURL({ dynamic: true }),
+      })
+      .setFooter({ text: `${client.user.username}'s AFK System` });
 
     const afkStatus = options.getString("status");
 
     try {
       switch (options.getSubcommand()) {
         case "set": {
+          let found = await DB.findOne({ GuildID: guild.id, UserID: user.id });
+          if (found) return interaction.reply("You are already afk.");
           await DB.findOneAndUpdate(
             { GuildID: guild.id, UserID: user.id },
             { Status: afkStatus, Time: parseInt(createdTimestamp / 1000) },
@@ -53,6 +57,9 @@ module.exports = {
           return interaction.reply({ embeds: [Embed], ephemeral: true });
         }
         case "return": {
+          let found = await DB.findOne({ GuildID: guild.id, UserID: user.id });
+          if (!found) return interaction.reply("You're not afk.");
+
           await DB.deleteOne({ GuildID: guild.id, UserID: user.id });
 
           Embed.setColor("RED").setDescription(
