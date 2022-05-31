@@ -19,7 +19,6 @@ module.exports = {
             ],
           }) && client.application.commands.delete(interaction.commandName)
         );
-
       command.execute(interaction, client, guildData, funcs);
     }
   },
