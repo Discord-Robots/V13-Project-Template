@@ -20,13 +20,15 @@ const { promisify } = require("util");
 const Ascii = require("ascii-table");
 const { glob } = require("glob");
 const PG = promisify(glob);
-const Utils = require("./Utils");
+const Funtions = require("./Functions");
+const guildData = require("./Utils");
 
 (async () => {
   client.commands = new Collection();
   client.filters = new Collection();
   client.filtersLog = new Collection();
-  client.functions = new Utils(client);
+  client.functions = new Funtions(client);
+  client.guildData = new guildData(client);
   client.login(process.env.TOKEN);
 })();
 

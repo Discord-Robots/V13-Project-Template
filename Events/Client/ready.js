@@ -21,7 +21,7 @@ module.exports = {
         .then(() => {
           console.log("🟢 - The client is now connected to the database!");
           client.guilds.cache.forEach((g) => {
-            client.functions.guild(g.id, g.name);
+            client.guildData.guild(g.id, g.name);
           });
         })
         .catch((err) => {

@@ -10,9 +10,10 @@ module.exports = {
    * @param {Client} client
    */
   async execute(interaction, client) {
-    const { guild } = interaction;
-    if (interaction.member.id !== BOTOWNERID)
+    const { guild, member } = interaction;
+    if (!client.functions.isOwner(member.id)) {
       return interaction.reply({ content: "You cannot use this command." });
+    }
     client.commands.sweep(() => true);
     glob(`${__dirname}/../**/*.js`, async (err, filePaths) => {
       if (err) return console.log(err);

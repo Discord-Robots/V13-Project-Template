@@ -1,6 +1,6 @@
 const Guild = require("./Schemas/Guild");
 
-module.exports = class Utils {
+module.exports = class guildData {
   constructor(client) {
     this.client = client;
   }
