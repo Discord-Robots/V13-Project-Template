@@ -5,7 +5,7 @@
 
 # How to Setup Project
 
-> Git clone this repo\n
+> Git clone this repo \
 > Run `npm install` to install required node_modules\n
 > Rename `.env.example` to `.env`
 > Insert your own info into `.env`
